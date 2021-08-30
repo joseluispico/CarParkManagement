@@ -76,10 +76,11 @@ $fecha2 = $_POST['Anual'].$_POST['Mes'].$dia2;
 
 <?PHP
 //Preparaci�n y ejecuci�n de la consulta
-  $consulta = "SELECT * FROM ticket WHERE FechaEntrada BETWEEN $fecha AND $fecha2;";
+  $consulta = "SELECT ti.numeroticket, ve.modelo, ve.placa, ve.tipovehiculo, ti.horaentrada, ti.horasalida, ti.monto FROM ticket as ti INNER JOIN vehiculo as ve ON ti.numeroticket = ve.id WHERE ti.fechaentrada BETWEEN $fecha AND $fecha2;";
+  //$consulta = "SELECT * FROM ticket WHERE FechaEntrada BETWEEN $fecha AND $fecha2;";
   $resultado = mysqli_query($mysqli, $consulta);
-  $consulta2 = "SELECT * FROM vehiculo";
-  $resultado2 = mysqli_query($mysqli, $consulta2); 
+  // $consulta2 = "SELECT * FROM vehiculo";
+  // $resultado2 = mysqli_query($mysqli, $consulta2); 
   $monto_total=0;
 
   if (mysqli_num_rows($resultado)==0)
@@ -91,19 +92,16 @@ $fecha2 = $_POST['Anual'].$_POST['Mes'].$dia2;
   while ($fila = mysqli_fetch_array($resultado)){
      //Proceso de cada una de las filas
      
-	 echo "<tr align='center'>"; 
-	 echo "<td class='tablestyle'>",$id=$fila['numeroticket'], "</td>";
-	 $consulta2 = "SELECT * FROM vehiculo WHERE id=$id";
-  $resultado2 = mysqli_query($mysqli, $consulta2); 
-	 while ($fila2 = mysqli_fetch_array($resultado2)){
-    echo "<td class='tablestyle'>", $fila2['modelo'], "</td>";
-    echo "<td class='tablestyle'>", $fila2['placa'], "</td>";
-    echo "<td class='tablestyle'>", $fila2['tipovehiculo'], "</td>";}
+	  echo "<tr align='center'>"; 
+	  echo "<td class='tablestyle'>", $id=$fila['numeroticket'], "</td>";
+    echo "<td class='tablestyle'>", $fila['modelo'], "</td>";
+    echo "<td class='tablestyle'>", $fila['placa'], "</td>";
+    echo "<td class='tablestyle'>", $fila['tipovehiculo'], "</td>";
     echo "<td class='tablestyle'>", $fila['horaentrada'], "</td>";
     echo "<td class='tablestyle'>", $fila['horasalida'], "</td>";
     echo "<td class='tablestyle'>", $m=$fila['monto'], "</td>";
 	 
-	 $monto_total= $m+$monto_total;
+	 $monto_total= (int)$m + (int)$monto_total;
      }  
     }
 ?>	  
