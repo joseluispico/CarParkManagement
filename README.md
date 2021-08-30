@@ -34,7 +34,7 @@ To run the application:
 </ul>
 
 3. Extract files in C:\xampp\htdocs.
-4. Download the database and import it to your local mysql database. 
+4. Download the database and import it to your local mysql database https://github.com/joseluispico/CarParkManagement/commit/31d81431e7a4bd396f3b804703e50b031a59f8cb
 5. Open a browser window and navigate to the index.php file in your application's directory.
 6. Register yourself and access to the system. 
 
